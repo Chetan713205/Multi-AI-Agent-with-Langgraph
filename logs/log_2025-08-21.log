@@ -1,0 +1,13 @@
+[2025-08-21 19:30:17,739] INFO - ..... Starting backend Service .....
+[2025-08-21 19:30:18,740] INFO - ..... Starting frontend Service .....
+[2025-08-21 19:31:57,468] INFO - Sending the request to backend
+[2025-08-21 19:31:57,545] INFO - Received request for model : llama-3.3-70b-verastile
+[2025-08-21 19:32:09,307] ERROR - Backend Error
+[2025-08-21 19:36:09,084] ERROR - Failed to start backend service: Command '['uvicorn', 'app.backend.api:app', '--host', '127.0.0.1', '--port', '9999']' returned non-zero exit status 3221225786.
+[2025-08-21 19:36:09,127] ERROR - Failed to start frontend service: Command '['streamlit', 'run', 'app/frontend/ui.py']' returned non-zero exit status 3221225786.
+[2025-08-21 19:36:22,858] INFO - ..... Starting backend Service .....
+[2025-08-21 19:36:23,859] INFO - ..... Starting frontend Service .....
+[2025-08-21 19:37:31,742] INFO - Sending the request to backend
+[2025-08-21 19:37:31,860] INFO - Received request for model : llama3-70b-8192
+[2025-08-21 19:37:35,848] ERROR - Backend Error
+[2025-08-21 19:57:29,055] ERROR - Failed to start frontend service: Command '['streamlit', 'run', 'app/frontend/ui.py']' returned non-zero exit status 3221225786.

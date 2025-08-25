@@ -1,0 +1,9 @@
+langchain-groq
+setuptools
+langchain-community
+uvicorn
+python-dotenv
+fastapi
+streamlit
+langgraph
+langchain-core
