@@ -13,19 +13,13 @@ RUN apt-get update -y && \
     apt-get install -y docker-ce docker-ce-cli containerd.io && \
     apt-get clean
 
-# Add Jenkins user to the Docker group
-RUN usermod -aG docker jenkins
+# Add Jenkins user to the Docker group (create if it doesn't exist)
+RUN groupadd -f docker && \
+    usermod -aG docker jenkins
 
-# Create a script to fix Docker socket permissions
-RUN echo '#!/bin/bash\n\
-chown root:docker /var/run/docker.sock\n\
-chmod 660 /var/run/docker.sock\n\
-exec "$@"' > /usr/local/bin/fix-docker-socket.sh && \
-    chmod +x /usr/local/bin/fix-docker-socket.sh
+# Create the Docker directory and volume for DinD
+RUN mkdir -p /var/lib/docker
+VOLUME /var/lib/docker
 
-# Switch back to Jenkins user
+# Switch back to the Jenkins user
 USER jenkins
-
-# Use tini as entrypoint and fix socket permissions
-ENTRYPOINT ["/usr/local/bin/fix-docker-socket.sh"]
-CMD ["/usr/bin/tini", "--", "/usr/local/bin/jenkins.sh"]
