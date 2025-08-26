@@ -1,10 +1,5 @@
-pipeline {
-    	agent {
-            docker {
-                image 'docker:20.10.16-dind'
-                args '--privileged -v /var/run/docker.sock:/var/run/docker.sock'
-            }
-        }
+pipeline{
+    agent any
         environment {
             AWS_REGION = 'ap-southeast-2'
             ECR_REPO = 'my-repo'
