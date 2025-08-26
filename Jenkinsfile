@@ -1,13 +1,17 @@
 pipeline {
-    	agent any
-
+    	agent {
+            docker {
+                image 'docker:20.10.16-dind'
+                args '--privileged -v /var/run/docker.sock:/var/run/docker.sock'
+            }
+        }
         environment {
             AWS_REGION = 'ap-southeast-2'
             ECR_REPO = 'my-repo'
             IMAGE_TAG = 'latest'
 	    }
 
-    	stages{
+    	stages {
         	stage('Cloning GitHub repo to Jenkins') {
             		steps{
                 		script{
@@ -17,23 +21,23 @@ pipeline {
             		}
         	}
 
-        stage('Build and Push Docker Image to ECR') {
-        steps {
-            withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws-token']]) {
+        stages {
+            stage('Build and Push Docker Image to ECR') {
+            steps {
+                withCredentials([usernamePassword(credentialsId: 'aws-token', passwordVariable: 'AWS_SECRET_ACCESS_KEY', usernameVariable: 'AWS_ACCESS_KEY_ID')]) {
                 script {
                     def accountId = sh(script: "aws sts get-caller-identity --query Account --output text", returnStdout: true).trim()
-                    def ecrUrl = "${accountId}.dkr.ecr.${env.AWS_REGION}.amazonaws.com/${env.ECR_REPO}"
-
+                    def ecrUrl    = "${accountId}.dkr.ecr.${AWS_REGION}.amazonaws.com/${ECR_REPO}"
                     sh """
                     aws ecr get-login-password --region ${AWS_REGION} | docker login --username AWS --password-stdin ${ecrUrl}
-                    docker build -t ${env.ECR_REPO}:${IMAGE_TAG} .
-                    docker tag ${env.ECR_REPO}:${IMAGE_TAG} ${ecrUrl}:${IMAGE_TAG}
+                    docker build -t ${ECR_REPO}:${IMAGE_TAG} .
+                    docker tag ${ECR_REPO}:${IMAGE_TAG} ${ecrUrl}:${IMAGE_TAG}
                     docker push ${ecrUrl}:${IMAGE_TAG}
                     """
+                        }
                     }
                 }
             }
         }
-        
     }
-}                    
+}
