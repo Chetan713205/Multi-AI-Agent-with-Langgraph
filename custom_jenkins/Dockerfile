@@ -14,9 +14,8 @@ RUN apt-get update -y && \
     apt-get install -y docker-ce docker-ce-cli containerd.io && \
     apt-get clean
 
-ARG DOCKER_GID=995
- # Add Jenkins user to the Docker group
-RUN groupadd -g ${DOCKER_GID} docker && \
+# Add Jenkins user to the Docker group (create if it doesn't exist)
+RUN groupadd -f docker && \
     usermod -aG docker jenkins
 
 # Create entrypoint to chown/chmod the socket at container start
