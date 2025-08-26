@@ -17,12 +17,6 @@ RUN apt-get update -y && \
 RUN groupadd -f docker && \
     usermod -aG docker jenkins
 
-# Create the Docker socket directory and set proper permissions
-RUN mkdir -p /var/run && \
-    touch /var/run/docker.sock && \
-    chmod 666 /var/run/docker.sock && \
-    chown root:docker /var/run/docker.sock
-
 # Create the Docker directory and volume for DinD
 RUN mkdir -p /var/lib/docker
 VOLUME /var/lib/docker
