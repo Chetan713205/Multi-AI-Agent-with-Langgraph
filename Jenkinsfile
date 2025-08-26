@@ -17,6 +17,19 @@ pipeline {
             		}
         	}
 
+        stage('Fix Docker Permissions') {
+            steps {
+                script {
+                    // Ensure Jenkins user has proper permissions
+                    sh '''
+                    sudo groupadd -f docker
+                    sudo usermod -aG docker jenkins || true
+                    sudo chmod 666 /var/run/docker.sock || true
+                    '''
+                }
+            }
+        }
+
         stage('Build and Push Docker Image to ECR') {
         steps {
             withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws-token']]) {
