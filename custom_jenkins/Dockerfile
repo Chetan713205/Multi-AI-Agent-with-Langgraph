@@ -1,21 +1,23 @@
- # Use the Jenkins image as the base image
- FROM jenkins/jenkins:lts
+
+# Use the Jenkins image as the base image
+FROM jenkins/jenkins:lts
 
  # Switch to root user to install dependencies
- USER root
+USER root
 
  # Install prerequisites and Docker
- RUN apt-get update -y && \
-     apt-get install -y apt-transport-https ca-certificates curl gnupg software-properties-common && \
-     curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add - && \
-     echo "deb [arch=amd64] https://download.docker.com/linux/debian bullseye stable" > /etc/apt/sources.list.d/docker.list && \
-     apt-get update -y && \
-     apt-get install -y docker-ce docker-ce-cli containerd.io && \
-     apt-get clean
+RUN apt-get update -y && \
+    apt-get install -y apt-transport-https ca-certificates curl gnupg software-properties-common && \
+    curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add - && \
+    echo "deb [arch=amd64] https://download.docker.com/linux/debian bullseye stable" > /etc/apt/sources.list.d/docker.list && \
+    apt-get update -y && \
+    apt-get install -y docker-ce docker-ce-cli containerd.io && \
+    apt-get clean
 
+ARG DOCKER_GID=995
  # Add Jenkins user to the Docker group
- RUN groupadd -f docker && \
-     usermod -aG docker jenkins
+RUN groupadd -g ${DOCKER_GID} docker && \
+    usermod -aG docker jenkins
 
 # Create entrypoint to chown/chmod the socket at container start
 RUN printf '%s\n' \
@@ -26,12 +28,12 @@ RUN printf '%s\n' \
     chmod +x /usr/local/bin/entrypoint.sh
 
  # Create the Docker directory and volume for DinD
- RUN mkdir -p /var/lib/docker
- VOLUME /var/lib/docker
+RUN mkdir -p /var/lib/docker
+VOLUME /var/lib/docker
 
  # Switch back to Jenkins user
- USER jenkins
+USER jenkins
 
 # Override entrypoint so permissions are fixed before Jenkins starts
- ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
- CMD ["/usr/bin/tini", "--", "/usr/local/bin/jenkins.sh"]
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
+CMD ["/usr/bin/tini", "--", "/usr/local/bin/jenkins.sh"]
