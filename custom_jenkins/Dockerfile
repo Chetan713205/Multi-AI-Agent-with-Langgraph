@@ -13,12 +13,16 @@ RUN apt-get update -y && \
     apt-get install -y docker-ce docker-ce-cli containerd.io && \
     apt-get clean
 
-# Ensure the Docker socket is owned by root:docker and group-writable
-RUN chown root:docker /var/run/docker.sock && chmod 660 /var/run/docker.sock
-
 # Add Jenkins user to the Docker group (create if it doesn't exist)
 RUN groupadd -f docker && \
     usermod -aG docker jenkins
+
+# Create entrypoint script to fix Docker socket permissions
+RUN echo '#!/bin/bash\n\
+chown root:docker /var/run/docker.sock\n\
+chmod 660 /var/run/docker.sock\n\
+exec "$@"' > /entrypoint.sh && \
+    chmod +x /entrypoint.sh
 
 # Create the Docker directory and volume for DinD
 RUN mkdir -p /var/lib/docker
@@ -26,3 +30,7 @@ VOLUME /var/lib/docker
 
 # Switch back to the Jenkins user
 USER jenkins
+
+# Set custom entrypoint
+ENTRYPOINT ["/entrypoint.sh"]
+CMD ["/usr/bin/tini", "--", "/usr/local/bin/jenkins.sh"]
