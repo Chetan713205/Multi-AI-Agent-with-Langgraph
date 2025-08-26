@@ -13,6 +13,9 @@ RUN apt-get update -y && \
     apt-get install -y docker-ce docker-ce-cli containerd.io && \
     apt-get clean
 
+# Ensure the Docker socket is owned by root:docker and group-writable
+RUN chown root:docker /var/run/docker.sock && chmod 660 /var/run/docker.sock
+
 # Add Jenkins user to the Docker group (create if it doesn't exist)
 RUN groupadd -f docker && \
     usermod -aG docker jenkins
