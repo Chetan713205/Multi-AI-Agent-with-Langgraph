@@ -42,3 +42,17 @@ TypeError: create_react_agent() got unexpected keyword arguments: {'state_modifi
 [2025-08-29 13:58:22,026] INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
 [2025-08-29 13:58:22,032] INFO - Successfully got response from AI Agent llama3-70b-8192
 [2025-08-29 13:58:22,035] INFO - Sucesfully recived response from backend
+[2025-08-29 15:48:28,198] INFO - starting backend service..
+[2025-08-29 15:48:30,318] INFO - Starting Frontend service
+[2025-08-29 15:50:32,556] INFO - Sending request to backend
+[2025-08-29 15:50:32,731] INFO - Received request for model: llama3-70b-8192
+[2025-08-29 15:50:54,032] INFO - Sending request to backend
+[2025-08-29 15:50:54,165] INFO - Received request for model: llama3-70b-8192
+[2025-08-29 15:51:35,700] INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+[2025-08-29 15:51:46,754] INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+[2025-08-29 15:51:50,446] INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+[2025-08-29 15:51:50,450] INFO - Successfully got response from AI Agent llama3-70b-8192
+[2025-08-29 15:51:50,467] INFO - Sucesfully recived response from backend
+[2025-08-29 15:52:24,615] INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+[2025-08-29 15:52:24,618] INFO - Successfully got response from AI Agent llama3-70b-8192
+[2025-08-29 15:52:24,620] INFO - Sucesfully recived response from backend
