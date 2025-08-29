@@ -1,0 +1,6 @@
+[2025-08-26 21:11:52,557] INFO - ..... Starting backend Service .....
+[2025-08-26 21:11:53,558] INFO - ..... Starting frontend Service .....
+[2025-08-26 21:13:49,430] INFO - Sending the request to backend
+[2025-08-26 21:13:49,539] INFO - Received request for model : llama3-70b-8192
+[2025-08-26 21:13:50,991] ERROR - Backend Error
+[2025-08-26 21:18:47,225] ERROR - Failed to start frontend service: Command '['streamlit', 'run', 'app/frontend/ui.py']' returned non-zero exit status 3221225786.

@@ -1,0 +1,44 @@
+[2025-08-29 13:37:46,668] INFO - starting backend service..
+[2025-08-29 13:37:48,669] INFO - Starting Frontend service
+[2025-08-29 13:39:21,939] INFO - Sending request to backend
+[2025-08-29 13:39:22,033] INFO - Received request for model : llama3-70b-8192
+[2025-08-29 13:39:25,988] ERROR - Some error ocuured during reponse generation
+[2025-08-29 13:39:25,996] ERROR - Backend error
+[2025-08-29 13:50:33,857] INFO - starting backend service..
+[2025-08-29 13:50:35,866] INFO - Starting Frontend service
+[2025-08-29 13:51:35,178] INFO - Sending request to backend
+[2025-08-29 13:51:35,273] INFO - Received request for model: llama3-70b-8192
+[2025-08-29 13:51:38,757] ERROR - Error occurred during response generation: create_react_agent() got unexpected keyword arguments: {'state_modifier': 'you are a medical agent'}
+[2025-08-29 13:51:38,803] ERROR - Traceback: Traceback (most recent call last):
+  File "F:\Z\app\backend\api.py", line 29, in chat_endpoint
+    response = get_response_from_ai_agents(
+        request.model_name,
+    ...<2 lines>...
+        request.system_prompt
+    )
+  File "F:\Z\app\core\ai_agent.py", line 35, in get_response_from_ai_agents
+    agent = create_react_agent(
+        model=llm,
+        tools=tools,
+        state_modifier=system_prompt
+    )
+  File "F:\Z\myenv\Lib\site-packages\langgraph\prebuilt\chat_agent_executor.py", line 477, in create_react_agent
+    raise TypeError(
+        f"create_react_agent() got unexpected keyword arguments: {deprecated_kwargs}"
+    )
+TypeError: create_react_agent() got unexpected keyword arguments: {'state_modifier': 'you are a medical agent'}
+
+[2025-08-29 13:51:38,809] ERROR - Backend error
+[2025-08-29 13:54:36,880] INFO - starting backend service..
+[2025-08-29 13:54:38,881] INFO - Starting Frontend service
+[2025-08-29 13:54:59,618] INFO - Sending request to backend
+[2025-08-29 13:54:59,654] INFO - Received request for model: llama3-70b-8192
+[2025-08-29 13:55:04,974] INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+[2025-08-29 13:55:05,072] INFO - Successfully got response from AI Agent llama3-70b-8192
+[2025-08-29 13:55:05,088] INFO - Sucesfully recived response from backend
+[2025-08-29 13:58:13,065] INFO - Sending request to backend
+[2025-08-29 13:58:13,074] INFO - Received request for model: llama3-70b-8192
+[2025-08-29 13:58:16,129] INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+[2025-08-29 13:58:22,026] INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+[2025-08-29 13:58:22,032] INFO - Successfully got response from AI Agent llama3-70b-8192
+[2025-08-29 13:58:22,035] INFO - Sucesfully recived response from backend
